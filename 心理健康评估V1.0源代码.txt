@@ -1,0 +1,586 @@
+FORM/Start
+
+Private Sub Form_Load()
+If App.PrevInstance = True Then
+MsgBox "程序已经在运行!", vbCritical
+Unload Me
+End
+End If
+
+End Sub
+
+Private Sub Image1_Click()
+Me.Hide
+Copyright.Show
+End Sub
+
+Private Sub Label1_Click()
+SAS.Show
+Me.Hide
+End Sub
+Private Sub Frame1_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Label1.ForeColor = &H8000&
+End Sub
+Private Sub Label1_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Label1.ForeColor = &HC000&
+End Sub
+Private Sub Frame2_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Label2.ForeColor = &H8000&
+End Sub
+Private Sub Label2_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Label2.ForeColor = &HC000&
+End Sub
+Private Sub Frame3_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Label3.ForeColor = &H8000&
+End Sub
+Private Sub Label3_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Label3.ForeColor = &HC000&
+End Sub
+Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Label1.ForeColor = &H8000&
+Label2.ForeColor = &H8000&
+Label3.ForeColor = &H8000&
+End Sub
+
+Private Sub Label2_Click()
+SDS.Show
+Me.Hide
+End Sub
+
+Private Sub Label3_Click()
+MsgBox "敬请期待！"
+End Sub
+
+Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+    End
+End Sub
+
+FORM/SAS
+
+Dim i%, j%
+Dim t%, h%, m%, s%, h1$, m1$, s1$
+Dim yesno
+Dim Q(1 To 20) As String
+Dim Op1(1 To 20) As Integer
+Dim Op2(1 To 20) As Integer
+Dim Op3(1 To 20) As Integer
+Dim Op4(1 To 20) As Integer
+Dim An(1 To 20) As Integer
+Dim SS%
+
+Private Sub Command1_Click()
+
+If i = 20 Then
+    MsgBox "已经是最后一题！", vbExclamation
+    Exit Sub
+End If
+
+i = i + 1
+Label1.Caption = i
+Text1.Text = Q(i)
+
+If An(i) = 0 Then
+    Option1.Value = False
+    Option2.Value = False
+    Option3.Value = False
+    Option4.Value = False
+ElseIf An(i) = Op1(i) Then
+    Option1.Value = True
+ElseIf An(i) = Op2(i) Then
+    Option2.Value = True
+ElseIf An(i) = Op3(i) Then
+    Option3.Value = True
+ElseIf An(i) = Op4(i) Then
+    Option4.Value = True
+End If
+
+End Sub
+
+Private Sub Command2_Click()
+
+If i = 1 Then
+    MsgBox "这是第一题哦！", vbExclamation
+    Exit Sub
+End If
+
+i = i - 1
+Label1.Caption = i
+Text1.Text = Q(i)
+
+If An(i) = 0 Then
+    Option1.Value = False
+    Option2.Value = False
+    Option3.Value = False
+    Option4.Value = False
+ElseIf An(i) = Op1(i) Then
+    Option1.Value = True
+ElseIf An(i) = Op2(i) Then
+    Option2.Value = True
+ElseIf An(i) = Op3(i) Then
+    Option3.Value = True
+ElseIf An(i) = Op4(i) Then
+    Option4.Value = True
+End If
+
+End Sub
+
+Private Sub Command3_Click()
+
+SS = 1
+R1 = 0
+
+For j = 1 To 20
+    SS = Sgn(SS * An(j))
+    R1 = R1 + An(j)
+Next
+
+If SS = 0 Then
+    MsgBox "还有题目未作答哦！", vbCritical
+    Exit Sub
+Else
+    R1 = R1
+    R2 = Int(1.25 * R1)
+    Timer1.Enabled = False
+    Me.Hide
+    Result1.Show
+End If
+
+End Sub
+
+Private Sub Form_Load()
+
+Q(1) = "我比平时容易紧张或着急。"
+Q(2) = "我无缘无故地感到害怕。"
+Q(3) = "我容易心里烦乱或觉得惊恐。"
+Q(4) = "我觉得我可能将要发疯。"
+Q(5) = "我觉得一切都很好，也不会发生什么不幸。"
+Q(6) = "我手脚发抖打颤。"
+Q(7) = "我因为头痛、颈痛和背痛而苦恼。"
+Q(8) = "我感觉容易衰弱和疲乏。"
+Q(9) = "我觉得心平气和，并且容易安静坐着。"
+Q(10) = "我觉得心跳得快。"
+Q(11) = "我因为一阵阵头晕而苦恼。"
+Q(12) = "我有过晕倒发作，或觉得要晕倒似的。"
+Q(13) = "我呼气吸气都感到很容易。"
+Q(14) = "我手脚麻木和刺痛痛。"
+Q(15) = "我因胃痛和消化不良而苦恼。"
+Q(16) = "我常常要小便。"
+Q(17) = "我的手常常是干燥温暖的。"
+Q(18) = "我脸红发热。"
+Q(19) = "我容易入睡并且一夜睡得很好。"
+Q(20) = "我做恶梦。"
+
+For i = 1 To 20
+
+    Op1(i) = 1
+    Op2(i) = 2
+    Op3(i) = 3
+    Op4(i) = 4
+
+If i = 5 Or i = 9 Or i = 13 Or i = 17 Or i = 19 Then
+    Op1(i) = 4
+    Op2(i) = 3
+    Op3(i) = 2
+    Op4(i) = 1
+End If
+
+Next
+
+i = 1
+Label1.Caption = i
+Text1.Text = Q(i)
+
+Timer1.Enabled = True
+Timer1.Interval = 1000
+
+End Sub
+
+Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+yesno = MsgBox("确定要退出吗？", vbYesNo)
+
+If yesno = vbYes Then
+    End
+Else
+    Cancel = 1
+    Exit Sub
+End If
+
+End Sub
+
+Private Sub Option1_Click()
+An(i) = Op1(i)
+End Sub
+
+Private Sub Option2_Click()
+An(i) = Op2(i)
+End Sub
+
+Private Sub Option3_Click()
+An(i) = Op3(i)
+End Sub
+
+Private Sub Option4_Click()
+An(i) = Op4(i)
+End Sub
+
+Private Sub Timer1_Timer()
+
+t = t + 1
+
+s = t Mod 60
+
+h = Int(t / 3600)
+m = Int((t - h * 3600) / 60)
+s = (t - h * 3600 - m * 60) Mod 60
+
+If h < 10 Then
+h1 = "0" & h
+Else
+h1 = h
+End If
+
+If m < 10 Then
+m1 = "0" & m
+Else
+m1 = m
+End If
+
+If s < 10 Then
+s1 = "0" & s
+Else
+s1 = s
+End If
+
+Label2.Caption = h1 & ":" & m1 & ":" & s1
+
+End Sub
+
+FORM/Result1
+
+Private Sub Form_Load()
+
+If R2 <= 50 Then
+    Label2.ForeColor = &H8000&
+    Label3.ForeColor = &H8000&
+    Label5.ForeColor = &H8000&
+    Text1.ForeColor = &H0&
+    Label5.Caption = "结果表明，被试不存在焦虑。"
+    Text1.Text = "建议保持这种状态。"
+ElseIf R2 <= 59 Then
+    Label2.ForeColor = &H8080&
+    Label3.ForeColor = &H8080&
+    Label5.ForeColor = &H8080&
+    Text1.ForeColor = &H0&
+    Label5.Caption = "结果表明，被试存在轻度焦虑。"
+    Text1.Text = "建议及时调整自己！"
+ElseIf R2 <= 69 Then
+    Label2.ForeColor = &H80&
+    Label3.ForeColor = &H80&
+    Label5.ForeColor = &H80&
+    Text1.ForeColor = &H0&
+    Label5.Caption = "结果表明，被试存在中度焦虑！"
+    Text1.Text = "建议尽快就医！"
+Else
+    Label2.ForeColor = &H80&
+    Label3.ForeColor = &H80&
+    Label5.ForeColor = &H80&
+    Text1.ForeColor = &H80&
+    Label5.Caption = "结果表明，被试存在重度焦虑！"
+    Text1.Text = "强烈建议尽快就医！"
+End If
+
+Label2.Caption = R1
+Label3.Caption = R2
+
+End Sub
+
+Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+yesno = MsgBox("确定要退出吗？", vbYesNo)
+
+If yesno = vbYes Then
+    End
+Else
+    Cancel = 1
+    Exit Sub
+End If
+
+End Sub
+
+Private Sub Label6_Click()
+Start.Label1.Enabled = False
+Me.Hide
+Start.Show
+End Sub
+
+Private Sub Label6_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Label6.ForeColor = &HC000&
+End Sub
+Private Sub Label7_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Label6.ForeColor = &H8000&
+End Sub
+Private Sub Text1_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Label6.ForeColor = &H8000&
+End Sub
+Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Label6.ForeColor = &H8000&
+End Sub
+
+FORM/SDS
+
+Dim i%, j%
+Dim t%, h%, m%, s%, h1$, m1$, s1$
+Dim yesno
+Dim Q(1 To 20) As String
+Dim Op1(1 To 20) As Integer
+Dim Op2(1 To 20) As Integer
+Dim Op3(1 To 20) As Integer
+Dim Op4(1 To 20) As Integer
+Dim An(1 To 20) As Integer
+Dim SS%
+
+Private Sub Command1_Click()
+
+If i = 20 Then
+    MsgBox "已经是最后一题！", vbExclamation
+    Exit Sub
+End If
+
+i = i + 1
+Label1.Caption = i
+Text1.Text = Q(i)
+
+If An(i) = 0 Then
+    Option1.Value = False
+    Option2.Value = False
+    Option3.Value = False
+    Option4.Value = False
+ElseIf An(i) = Op1(i) Then
+    Option1.Value = True
+ElseIf An(i) = Op2(i) Then
+    Option2.Value = True
+ElseIf An(i) = Op3(i) Then
+    Option3.Value = True
+ElseIf An(i) = Op4(i) Then
+    Option4.Value = True
+End If
+
+End Sub
+
+Private Sub Command2_Click()
+
+If i = 1 Then
+    MsgBox "这是第一题哦！", vbExclamation
+    Exit Sub
+End If
+
+i = i - 1
+Label1.Caption = i
+Text1.Text = Q(i)
+
+If An(i) = 0 Then
+    Option1.Value = False
+    Option2.Value = False
+    Option3.Value = False
+    Option4.Value = False
+ElseIf An(i) = Op1(i) Then
+    Option1.Value = True
+ElseIf An(i) = Op2(i) Then
+    Option2.Value = True
+ElseIf An(i) = Op3(i) Then
+    Option3.Value = True
+ElseIf An(i) = Op4(i) Then
+    Option4.Value = True
+End If
+
+End Sub
+
+Private Sub Command3_Click()
+
+SS = 1
+R1 = 0
+
+For j = 1 To 20
+    SS = Sgn(SS * An(j))
+    R1 = R1 + An(j)
+Next
+
+If SS = 0 Then
+    MsgBox "还有题目未作答哦！", vbCritical
+    Exit Sub
+Else
+    R1 = R1
+    R2 = Format(R1 / 80, ".00")
+    Timer1.Enabled = False
+    Me.Hide
+    Result2.Show
+End If
+
+End Sub
+
+Private Sub Form_Load()
+
+Q(1) = "我感到情绪沮丧，郁闷。"
+Q(2) = "我感到早晨心情最好。"
+Q(3) = "我要哭或想哭。"
+Q(4) = "我夜间睡眠不好。"
+Q(5) = "我吃饭象平常一样多。"
+Q(6) = "我的性功能正常。"
+Q(7) = "我感到体重减轻。"
+Q(8) = "我为便秘烦恼。"
+Q(9) = "我的心跳比平时快。"
+Q(10) = "我无故感到疲劳。"
+Q(11) = "我的头脑象往常一样清楚。"
+Q(12) = "我做事情像平时一样不感到困难。"
+Q(13) = "我坐卧不安，难以保持平静。"
+Q(14) = "我对未来感到有希望。"
+Q(15) = "我比平时更容易激怒。"
+Q(16) = "我觉得决定什么事情很容易。"
+Q(17) = "我感到自己是有用的和不可缺少的人。"
+Q(18) = "我的生活很有意义。"
+Q(19) = "假若我死了别人会过得更好。"
+Q(20) = "我仍旧喜爱自己平时喜爱的东西。"
+
+For i = 1 To 20
+
+    Op1(i) = 1
+    Op2(i) = 2
+    Op3(i) = 3
+    Op4(i) = 4
+
+If i = 2 Or i = 5 Or i = 6 Or i = 11 Or i = 12 Or i = 14 Or i = 16 Or i = 17 Or i = 18 Or i = 20 Then
+    Op1(i) = 4
+    Op2(i) = 3
+    Op3(i) = 2
+    Op4(i) = 1
+End If
+
+Next
+
+i = 1
+Label1.Caption = i
+Text1.Text = Q(i)
+
+Timer1.Enabled = True
+Timer1.Interval = 1000
+
+End Sub
+
+Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+yesno = MsgBox("确定要退出吗？", vbYesNo)
+
+If yesno = vbYes Then
+    End
+Else
+    Cancel = 1
+    Exit Sub
+End If
+
+End Sub
+
+Private Sub Option1_Click()
+An(i) = Op1(i)
+End Sub
+
+Private Sub Option2_Click()
+An(i) = Op2(i)
+End Sub
+
+Private Sub Option3_Click()
+An(i) = Op3(i)
+End Sub
+
+Private Sub Option4_Click()
+An(i) = Op4(i)
+End Sub
+
+Private Sub Timer1_Timer()
+
+t = t + 1
+
+s = t Mod 60
+
+h = Int(t / 3600)
+m = Int((t - h * 3600) / 60)
+s = (t - h * 3600 - m * 60) Mod 60
+
+If h < 10 Then
+h1 = "0" & h
+Else
+h1 = h
+End If
+
+If m < 10 Then
+m1 = "0" & m
+Else
+m1 = m
+End If
+
+If s < 10 Then
+s1 = "0" & s
+Else
+s1 = s
+End If
+
+Label2.Caption = h1 & ":" & m1 & ":" & s1
+
+End Sub
+
+FORM/Result2
+
+Private Sub Form_Load()
+
+
+If R1 <= 53 Then
+    Label2.ForeColor = &H8000&
+    Label3.ForeColor = &H8000&
+    Label5.ForeColor = &H8000&
+    Text1.ForeColor = &H0&
+    Label5.Caption = "结果表明，被试无抑郁。"
+    Text1.Text = "建议保持这种状态。"
+ElseIf R1 <= 62 Then
+    Label2.ForeColor = &H8080&
+    Label3.ForeColor = &H8080&
+    Label5.ForeColor = &H8080&
+    Text1.ForeColor = &H0&
+    Label5.Caption = "结果表明，被试存在轻度抑郁。"
+    Text1.Text = "要学会倾诉、宣泄、自我调节；积极地认识自我、悦纳自我！"
+ElseIf R1 <= 72 Then
+    Label2.ForeColor = &H80&
+    Label3.ForeColor = &H80&
+    Label5.ForeColor = &H80&
+    Text1.ForeColor = &H0&
+    Label5.Caption = "结果表明，被试存在中度抑郁！"
+    Text1.Text = "建议尽快就医！"
+Else
+    Label2.ForeColor = &H80&
+    Label3.ForeColor = &H80&
+    Label5.ForeColor = &H80&
+    Text1.ForeColor = &H80&
+    Label5.Caption = "结果表明，被试存在重度抑郁！"
+    Text1.Text = "强烈建议尽快就医！"
+End If
+
+Label2.Caption = R1
+Label3.Caption = R2
+
+End Sub
+
+Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+yesno = MsgBox("确定要退出吗？", vbYesNo)
+
+If yesno = vbYes Then
+    End
+Else
+    Cancel = 1
+    Exit Sub
+End If
+
+End Sub
+
+Private Sub Label6_Click()
+Start.Label2.Enabled = False
+Me.Hide
+Start.Show
+End Sub
+
+
